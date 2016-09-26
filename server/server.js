@@ -11,4 +11,25 @@ app.get("/api/title", (req, res) =>
   res.json({ title: "MEAN TO DO / From Node! (Now Bootstraped!)" })   //use objects here NOT STRINGS 
 )
 
+app.get("/api/messages", (req, res) =>
+  res.json({
+    messages: [
+      {
+        author: "John",
+        content: "SAAAAAAAPPP",
+      },
+      {
+        author: "Anon",
+        content: "#whodrewthepoop",
+      },
+      {
+        author: "Scott",
+        content: "noice",
+      },
+    ],  //use objects here NOT STRINGS
+     
+  })
+)
+
+
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`))     //server/server.js console.log()

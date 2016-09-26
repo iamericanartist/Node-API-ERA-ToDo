@@ -10,13 +10,12 @@
 
     <div ng-app="todoApp">
       <div class="container">
-        <div ng-controller="main">
-          <h1>{{title}}</h1>
-        </div>
+        <div ng-view></div>   <!-- ANGULAR OUTPUT GOES HERE -->
       </div>
     </div>
 
     <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-route/angular-route.min.js"></script>
     <script src="/app/main.js"></script>
   </body>
 </html>
