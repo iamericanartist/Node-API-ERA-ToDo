@@ -2,6 +2,12 @@
 
 angular
   .module('todoApp', [])
-  .controller('main', function ($scope) {
-    $scope.title = 'To Do App w/Angular'
+  .controller('main', function ($scope, $http) {          //add $http
+    $http
+      .get("/api/title")
+      // .then((data) =>                                  //NOT destructured 
+        // $scope.title = data.data.title
+      .then(({ data: { title }}) =>                       //destructured
+        $scope.title = title
+      )
   })
