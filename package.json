@@ -1,0 +1,26 @@
+{
+  "name": "node-api-era-todo",
+  "version": "1.0.0",
+  "description": "MEAN Stack To Do App utilizing Node and AngularJS",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamericanartist/Node-API-ERA-ToDo.git"
+  },
+  "author": "Eric Denton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamericanartist/Node-API-ERA-ToDo/issues"
+  },
+  "homepage": "https://github.com/iamericanartist/Node-API-ERA-ToDo#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "bower": "^1.7.9"
+  }
+}
