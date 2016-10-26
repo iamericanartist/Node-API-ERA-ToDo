@@ -33,9 +33,17 @@ app.post("/api/messages", (req, res, err) => {
   const msg = req.body
   Message
     .create(msg)
-    .then(msg => res.json(msg))
+    .then(msg => res.status(201).json(msg))
     .catch(err)
 })
+
+app.use('/api', (req, res) =>
+  res.status(404).send({ code: 404, status: 'Not Found' })
+)
+
+app.use((err, req, res, next) =>
+  res.status(500).send({ code: 500, status: 'Internal Server Error', detail: err.stack })
+)
 
 mongoose.promise = Promise
 mongoose.connect(MONGODB_URL, () =>

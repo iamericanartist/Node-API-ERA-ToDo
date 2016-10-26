@@ -1,15 +1,19 @@
 <h1>{{title}}</h1>
 <h3>TO DO or NOT TO DO...</h3>
-<a class="btn btn-primary" href="/#/">Back to Main</a>
+<a class="btn btn-primary btn-xs" href="/#/">Back to Main</a>
 
 <ul>
-  <li ng-repeat="message in messages">{{message.task}}</li>
+  <li class="row toDoSet" ng-repeat="message in messages">
+      {{message.task}}
+    <a type="submit" class="btn btn-primary btn-xs"> Edit </a>
+    <a type="submit" class="btn btn-danger btn-xs"> Done </a>
+  </li>
 </ul>
 
 <hr />
 
 <form ng-submit="sendMessage()">
   <input type="text" ng-model="task" placeholder="Get The Baby" />
-  <input type="submit" />
+  <input class="btn btn-success btn-xs" type="submit" />
 </form>
 
