@@ -3,17 +3,15 @@
 <a class="btn btn-primary btn-xs" href="/#/">Back to Main</a>
 
 <ul>
-  <li class="row toDoSet" ng-repeat="message in messages">
-      {{message.task}}
-    <a type="submit" class="btn btn-primary btn-xs"> Edit </a>
-    <a type="submit" class="btn btn-danger btn-xs"> Done </a>
+  <li class="row toDoSet" ng-repeat="item in items"> {{item.task}} 
+    <a type="submit" class="btn btn-primary btn-xs" ng-click="editTask(item._id)"> Edit </a>
+    <a type="submit" class="btn btn-danger btn-xs" name="deleteCheckbox" ng-click="removeItem(item._id)"> Delete </a>
   </li>
 </ul>
 
 <hr />
 
-<form ng-submit="sendMessage()">
+<form ng-submit="postNewTask()">
   <input type="text" ng-model="task" placeholder="Get The Baby" />
   <input class="btn btn-success btn-xs" type="submit" />
 </form>
-

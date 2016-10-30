@@ -2,7 +2,7 @@
 
 const { json } = require("body-parser")                               //returns middleware that only parses json
 const express = require("express")                                    //pull Express in
-const mongoose = require('mongoose');                                 //pull Mongoose in
+const mongoose = require('mongoose')                                 //pull Mongoose in
 
 const app = express()                                                 //initialize Express
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/meantodo'
@@ -13,29 +13,67 @@ app.use(express.static('client'))                                     //express 
 app.use(json())
 
 app.get("/api/title", (req, res) =>
-  res.json({ title: "MEAN TO DO / From Node! (Now Bootstraped!)" })   //use objects here NOT STRINGS 
+  res.json({ title: "MEAN TO DO / Node! / Bootstrap! / CRUD!" })   //use objects here NOT STRINGS 
 )
 
+
 ////////////////////////////////////  MODEL  ////////////////////////////////////
-const Message = mongoose.model('message', {
-  task: String,
+const Item = mongoose.model('item', {
+  task: String
 }) 
 
 
-app.get("/api/messages", (req, res, err) =>
-  Message
+
+app.get("/api/items", (req, res, err) =>
+  Item
     .find()
-    .then(messages => res.json({ messages }))
+    .then(items => res.json({ items }))
     .catch(err)
 )
 
-app.post("/api/messages", (req, res, err) => {
-  const msg = req.body
-  Message
-    .create(msg)
-    .then(msg => res.status(201).json(msg))
+app.post("/api/items", (req, res, err) => {
+  const task = req.body
+  // console.log("||SERVER NEW Task: ", req.body);
+  Item
+    .create(task)
+    .then(task => res.status(201).json(task))
     .catch(err)
 })
+
+app.delete('/api/items/:id', (req, res, err) => {
+  const id = req.params.id
+  // console.log("||SERVER REMOVE ID: ", id)
+  Item
+    .find({_id: id})
+    .remove({_id: id})
+    .then(() => res.status(204))
+    .catch(err)
+})
+
+
+app.get('/api/taskDescription/:id', (req, res, err) => {
+  const id = req.params.id
+  // console.log("||SERVER EDIT THIS ID from api req.body: ", id)
+  Item
+    .find({_id: id})
+    .then(task => res.json(task))
+    .catch(err)
+})
+
+app.put('/api/items/:id', (req, res, err) => {
+  const id = req.params.id
+  // console.log("||SERVER Edited Task: ", req.body)
+  // console.log("||SERVER Edited ID: ", id)
+
+  Item
+    .findOneAndUpdate({_id: id}, req.body, { upsert: true })
+    .then(data => res.status(200).json(data))
+    .then(reloadPage())
+    .catch(err)
+})
+
+
+
 
 app.use('/api', (req, res) =>
   res.status(404).send({ code: 404, status: 'Not Found' })
@@ -45,7 +83,7 @@ app.use((err, req, res, next) =>
   res.status(500).send({ code: 500, status: 'Internal Server Error', detail: err.stack })
 )
 
-mongoose.promise = Promise
+mongoose.Promise = Promise
 mongoose.connect(MONGODB_URL, () =>
   app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`))     //server/server.js console.log()
 )
