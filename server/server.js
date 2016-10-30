@@ -13,7 +13,7 @@ app.use(express.static('client'))                                     //express 
 app.use(json())
 
 app.get("/api/title", (req, res) =>
-  res.json({ title: "MEAN TO DO / From Node! (Now Bootstraped!)" })   //use objects here NOT STRINGS 
+  res.json({ title: "MEAN TO DO / Node! / Bootstrap! / CRUD!" })   //use objects here NOT STRINGS 
 )
 
 
@@ -21,6 +21,7 @@ app.get("/api/title", (req, res) =>
 const Item = mongoose.model('item', {
   task: String
 }) 
+
 
 
 app.get("/api/items", (req, res, err) =>
@@ -32,7 +33,7 @@ app.get("/api/items", (req, res, err) =>
 
 app.post("/api/items", (req, res, err) => {
   const task = req.body
-  console.log("||SERVER NEW Task: ", req.body);
+  // console.log("||SERVER NEW Task: ", req.body);
   Item
     .create(task)
     .then(task => res.status(201).json(task))
@@ -41,15 +42,13 @@ app.post("/api/items", (req, res, err) => {
 
 app.delete('/api/items/:id', (req, res, err) => {
   const id = req.params.id
-  console.log("||SERVER REMOVE ID: ", id)
+  // console.log("||SERVER REMOVE ID: ", id)
   Item
     .find({_id: id})
     .remove({_id: id})
     .then(() => res.status(204))
     .catch(err)
 })
-///////////////////////////////////////////////////////  GOOOOOOOD  ///////////////////////////////////////////////////////
-
 
 
 app.get('/api/taskDescription/:id', (req, res, err) => {
